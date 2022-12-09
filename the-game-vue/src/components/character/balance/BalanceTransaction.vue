@@ -6,7 +6,7 @@
       <div class="w-full flex shadow-md rounded-b-xl rounded-t-lg bg-lera-green-light justify-center mb-4">
         <h2 class="my-4 font-black text-xl text-center">ПЕРЕВОД<br>ПОЛЬЗОВАТЕЛЮ</h2>
       </div>
-      <div v-if="isError" class="text-lera-red p-2 mb-4 text-justify">{{errorMessage ? errorMessage : errorMessageDefault}}</div>
+      <div v-if="isError" class="text-lera-red p-2 mb-4 text-justify leading-tight">{{errorMessage ? errorMessage : errorMessageDefault}}</div>
       <div class="mb-6 mx-16">
         <label for="code" class="block mb-2 font-medium">Код получателя</label>
         <input type="number" id="code" class="bg-gray-50 border border-lera-green-light rounded-lg shadow-md w-full p-2 tracking-widest text-center font-bold text-xl
@@ -58,7 +58,7 @@ export default {
       isLoading: false,
       isError: false,
       errorMessage: '',
-      errorMessageDefault: 'Ууууупс. Произошла ошибка при совершении транзакции, проверьте введенные данные или повторите отправку позже.',
+      errorMessageDefault: ' Произошла ошибка при совершении транзакции, проверьте введенные данные или повторите отправку позже.',
       secret_code: null,
       amount: null,
     }
@@ -81,9 +81,14 @@ export default {
       }
 
       if (this.balance.secret_code === this.secret_code) {
-        console.log(this.balance.secret_code)
         this.isError = true
         this.errorMessage = 'Ты кого пытаешься наебать?'
+        return
+      }
+
+      if (this.amount < 0) {
+        this.isError = true
+        this.errorMessage = 'Ну ты черт. Еще раз и я вызову наряд!!!'
         return
       }
 

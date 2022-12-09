@@ -23,9 +23,10 @@
         class="h-full w-full" v-if="currentTab">
         <CharacterStory v-if="currentTab.type==='CharacterStory'" :story="currentTab.data.content"/>
         <CharacterHealth v-if="currentTab.type==='CharacterHealth'" :health="currentTab.data" :characterID="character.id"/>
-        <CharacterSkills v-if="currentTab.type==='CharacterSkill'"/>
+        <CharacterSkills v-if="currentTab.type==='CharacterSkill'" :characterID="character.id" :skillsProp="currentTab.data"/>
         <CharacterBalance v-if="currentTab.type==='CharacterBalance'" :characterID="character.id" :balanceProp="currentTab.data" @openTransactionPopup="() => isTransactionOpened = true"
           />
+        <CharacterAdmin v-if="currentTab.type==='CharacterAdmin'" />
       </div>
     </div>
 
@@ -42,6 +43,7 @@ import CharacterSkills from './CharacterSkills.vue';
 import CharacterHealth from './CharacterHealth.vue';
 import BalanceTransaction from './balance/BalanceTransaction.vue';
 import { useCharactersStore } from '../../store/CharactersStore';
+import CharacterAdmin from './CharacterAdmin.vue';
 
 export default {
   components: {
@@ -50,11 +52,12 @@ export default {
     CharacterBalance,
     CharacterSkills,
     CharacterHealth,
-    BalanceTransaction
-  },
+    BalanceTransaction,
+    CharacterAdmin
+},
 
   props: {
-    characterID: Object
+    characterID: Number
   },
 
   setup() {

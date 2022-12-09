@@ -20,6 +20,12 @@ export const useCharactersStore = defineStore('character', {
         var character = state.getCharacterByID(id)
         return character.tabs.find(tab => tab.title === 'balance')
       }
+    },
+    getCharacterSkillsByID: (state) => {
+      return (id) => {
+        var character = state.getCharacterByID(id)
+        return character.tabs.find(tab => tab.title === 'skills')
+      }
     }
   },
   actions: {
@@ -32,28 +38,9 @@ export const useCharactersStore = defineStore('character', {
         'Authorization': authStore.access_token
       }
       })
-      if (!this.characters) {
-        this.characters = response.data
-        return
-      }
-
       this.characters = response.data
-
-      // this.characters.forEach((character) => {
-      //   var balance = character.tabs.find(tab => tab.title === 'balance')
-      //   console.log(character.tabs.find(tab => tab.title === 'balance'))
-      //   if (balance) {
-      //     var response_character = response.data.find(response_character => response_character.id === character.id)
-      //     var response_character_balance = response_character.tabs.find(tab => tab.title === 'balance')
-
-      //     if (balance.data.balance !== response_character_balance.data.balance) {
-            
-      //     }
-      //   }
-      // })
     },
     logout() {
-      // localStorage.removeItem('characters')
     }
   },
 })

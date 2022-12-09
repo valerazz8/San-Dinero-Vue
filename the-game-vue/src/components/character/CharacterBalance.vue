@@ -74,20 +74,9 @@ export default {
   },
 
   mounted() {
-    if (!this.balanceProp) return
+    this.balance = this.characterStore.getCharacterBalanceByID(this.characterID).data
 
-    this.balance = this.balanceProp
-
-    this.characterStore.$subscribe((mutation, state) => {
-      // import { MutationType } from 'pinia'
-      mutation.type // 'direct' | 'patch object' | 'patch function'
-      // same as cartStore.$id
-      mutation.storeId // 'cart'
-      // only available with mutation.type === 'patch object'
-      mutation.payload // patch object passed to cartStore.$patch()
-
-      this.updateBalance()
-    })
+    this.characterStore.$subscribe((mutation, state) => this.updateBalance())
   },
   data() {
     return {
